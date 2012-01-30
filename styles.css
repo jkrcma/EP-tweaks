@@ -1,0 +1,28 @@
+/* No capitalization of task title */
+.issue-detail-header {
+	text-transform: none !important;
+}
+
+.fieldset-edit-textarea {
+	width: inherit !important;
+}
+
+/* Revert side effects caused by CK */
+.wiki-edit {
+	visibility: visible !important;
+	display: block !important;
+}
+
+#notes, #issue_description,
+#news_description, #document_description {
+	width: 643px;
+}
+
+span[class*="cke_editor_"] {
+	display: none !important;
+}
+
+/* New issue page */
+#issue-dependent-fields {
+	float: none !important;
+}
