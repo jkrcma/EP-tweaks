@@ -22,6 +22,7 @@ var images = {
 	".dotclear .markItUpEditor": "markitup/skins/markitup/images/bg-editor-wiki.png",
 };
 
+/* MarkItUp editor startup */
 $(document).ready(function() {
 	mySettings.nameSpace = 'html';
 	mySettings.previewTemplatePath = chrome.extension.getURL('markitup/templates/preview.html');
@@ -40,7 +41,10 @@ $(document).ready(function() {
 		}
 		$(selector).css('background-image', "url('" + chrome.extension.getURL(images[selector]) + "')");
 	}
-	
+});
+
+/* MarkItUp editor submit */
+$(document).ready(function() {
 	$('#issue-form').submit(function(e) {
 		// issue description
 		$('#cke_issue_description iframe', this).contents()
@@ -61,4 +65,18 @@ $(document).ready(function() {
 		$('#cke_document_description iframe', this).contents()
 			.find('body').html($('#document_description', this).val());
 	});
+});
+
+/* New issue watchers */
+$(document).ready(function() {
+	var watchers = [];
+	$('.issue_watchers .issue-watcher-container').each(function(i, o) {
+		watchers[$('input:checkbox', o).attr('id')] = $('.issue-watcher-name', o).text();
+	});
+	
+	var container = $('<div id="watchers"><h4>Spolupracovníci:</h4><div class="container"></div></div>').insertAfter('#attributes').find('.container');
+	for (i in watchers) {
+		container.append($('#' + i));
+		container.append(watchers[i] + '<br>');
+	}
 });

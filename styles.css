@@ -23,6 +23,52 @@ span[class*="cke_editor_"] {
 }
 
 /* New issue page */
-#issue-dependent-fields {
-	float: none !important;
+.issue_watchers {
+	display: none !important;
+}
+
+#issue-dependent-fields,
+.issue_updatable_fields {
+	width: 220px !important;
+}
+
+/* Subject */
+#issue_subject {
+	width: 496px !important;
+}
+
+/* Datetime fields */
+#issue_start_date, #issue_due_date {
+	width: 80px;
+}
+
+/* Estimated hours */
+#issue_estimated_hours {
+	margin-left: 0;
+}
+
+/* URL field */
+#issue_custom_field_values_6 {
+	width: 210px;
+}
+
+#attributes * {
+	font-size: 100% !important;
+}
+
+#attributes label {
+	width: 110px !important;
+}
+
+.attachments-container input[type="file"] {
+	width: 210px;
+}
+
+#watchers input {
+	vertical-align: bottom;
+}
+
+/* Documents */
+#add-document-general .description {
+	width: 720px !important;
 }
