@@ -1,13 +1,20 @@
 // load images
 var images = {
-	".markItUp .markItUpButton1 a": "markitup/sets/default/images/bold.png",
-	".markItUp .markItUpButton2 a": "markitup/sets/default/images/italic.png",
-	".markItUp .markItUpButton3 a": "markitup/sets/default/images/stroke.png",
-	".markItUp .markItUpButton4 a": "markitup/sets/default/images/list-bullet.png",
-	".markItUp .markItUpButton5 a": "markitup/sets/default/images/list-numeric.png",
-	".markItUp .markItUpButton6 a": "markitup/sets/default/images/picture.png",
-	".markItUp .markItUpButton7 a": "markitup/sets/default/images/link.png",
-	".markItUp .markItUpButton8 a": "markitup/sets/default/images/clean.png",
+	".markItUp .bold a": "markitup/sets/default/images/bold.png",
+	".markItUp .italic a": "markitup/sets/default/images/italic.png",
+	".markItUp .underline a": "markitup/sets/default/images/underline.png",
+	".markItUp .stroke a": "markitup/sets/default/images/stroke.png",
+	".markItUp .h1 a": "markitup/sets/default/images/heading1.png",
+	".markItUp .h2 a": "markitup/sets/default/images/heading2.png",
+	".markItUp .super a": "markitup/sets/default/images/superscript.png",
+	".markItUp .sub a": "markitup/sets/default/images/subscript.png",
+	".markItUp .blist a": "markitup/sets/default/images/list-bullet.png",
+	".markItUp .nlist a": "markitup/sets/default/images/list-numeric.png",
+	".markItUp .image a": "markitup/sets/default/images/picture.png",
+	".markItUp .link a": "markitup/sets/default/images/link.png",
+	".markItUp .code a": "markitup/sets/default/images/code-block.png",
+	".markItUp .icode a": "markitup/sets/default/images/code-inline.png",
+	".markItUp .clean a": "markitup/sets/default/images/clean.png",
 	".markItUp .preview a": "markitup/sets/default/images/preview.png",
 	".markItUpContainer": "markitup/skins/markitup/images/bg-container.png",
 	".markItUpEditor": "markitup/skins/markitup/images/bg-editor.png",
@@ -24,16 +31,22 @@ var images = {
 
 /* MarkItUp editor startup */
 $(document).ready(function() {
-	mySettings.nameSpace = 'html';
 	mySettings.previewTemplatePath = chrome.extension.getURL('markitup/templates/preview.html');
-	mySettings.previewInWindow = false;
 	
-	$('.wiki-edit')
-		.css({
-			visibility: 'visible',
-			display: 'block',
-		})
-		.markItUp(mySettings);
+	// clone textarea, fuck up with CKE
+	$('.wiki-edit').each(function(i, o) {
+		var origin = $(o);
+		var replacement = origin.clone();
+		
+		origin.attr({
+			disabled: true,
+			name: '_' + origin.attr('name'),
+			class: 'ept-hidden'
+		});
+		replacement.attr('id', 'ept_' + replacement.attr('id'));
+		replacement.insertBefore(origin);
+		replacement.markItUp(mySettings);
+	});
 	
 	for (var selector in images) {
 		if (!images.hasOwnProperty(selector)) {
@@ -41,30 +54,6 @@ $(document).ready(function() {
 		}
 		$(selector).css('background-image', "url('" + chrome.extension.getURL(images[selector]) + "')");
 	}
-});
-
-/* MarkItUp editor submit */
-$(document).ready(function() {
-	$('#issue-form').submit(function(e) {
-		// issue description
-		$('#cke_issue_description iframe', this).contents()
-			.find('body').html($('#issue_description', this).val());
-		// note
-		$('#cke_notes iframe', this).contents()
-			.find('body').html($('#notes', this).val());
-	});
-	
-	$('#news-form').submit(function(e) {
-		// news description
-		$('#cke_news_description iframe', this).contents()
-			.find('body').html($('#news_description', this).val());
-	});
-	
-	$('#document_description').closest('form').submit(function(e) {
-		// document description
-		$('#cke_document_description iframe', this).contents()
-			.find('body').html($('#document_description', this).val());
-	});
 });
 
 /* New issue watchers */
@@ -79,4 +68,32 @@ $(document).ready(function() {
 		container.append($('#' + i));
 		container.append(watchers[i] + '<br>');
 	}
+});
+
+/* Status: Hotovo - means 100 % of completion */
+var doneRatioOriginalValue = 0;
+
+$(document).ready(function() {
+	const STATUS_HOTOVO = 6;
+	var statusIdSelect = $('#issue_status_id');
+	var doneRatioSelect = $('#issue_done_ratio');
+	
+	doneRatioSelect.change(function() {
+		var value = $(this).val();
+		
+		if (value == 100) {
+			statusIdSelect.val(STATUS_HOTOVO);
+			// visual enhance
+			$(this).css('outline', '5px auto #F36');
+		} else {
+			doneRatioOriginalValue = value;
+			$(this).css('outline', 'none');
+		}
+	}).change();
+	
+	statusIdSelect.change(function() {
+		doneRatioSelect.val($(this).val() == STATUS_HOTOVO
+			? 100 : doneRatioOriginalValue);
+		doneRatioSelect.change();
+	});
 });

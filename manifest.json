@@ -1,6 +1,6 @@
 {
 	"name": "EasyProject tweaks",
-	"version": "0.2",
+	"version": "0.3",
 	"description": "Contains CSS and JavaScripts to fix annoying bugs in EasyProject software.",
 
 	"content_scripts": [
@@ -8,7 +8,6 @@
 			"matches": ["https://iinfo.easyproject.cz/*"],
 			"css": [
 				"markitup/skins/markitup/style.css",
-				"markitup/sets/default/style.css",
 				"styles.css"
 			],
 			"js": [

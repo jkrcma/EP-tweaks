@@ -1,8 +1,17 @@
+
+/******************** General ********************/
+
+/* Helper class used to hide original textareas infected with CKE */
+.ept-hidden {
+	display: none;
+}
+
 /* No capitalization of task title */
 .issue-detail-header {
 	text-transform: none !important;
 }
 
+/* Enlarge the block with textarea inside */
 .fieldset-edit-textarea {
 	width: inherit !important;
 }
@@ -13,16 +22,18 @@
 	display: block !important;
 }
 
-#notes, #issue_description,
-#news_description, #document_description {
+/* Explicit width for particular textareas, needed due the fucking EP stylesheets */
+#ept_notes, #ept_issue_description,
+#ept_news_description, #ept_document_description {
 	width: 643px;
 }
 
+/* Hide CKE shit */
 span[class*="cke_editor_"] {
 	display: none !important;
 }
 
-/* New issue page */
+/******************** New issue page ********************/
 .issue_watchers {
 	display: none !important;
 }
@@ -68,7 +79,7 @@ span[class*="cke_editor_"] {
 	vertical-align: bottom;
 }
 
-/* Documents */
+/******************** Documents ********************/
 #add-document-general .description {
 	width: 720px !important;
 }
