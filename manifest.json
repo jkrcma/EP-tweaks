@@ -1,6 +1,6 @@
 {
 	"name": "EasyProject tweaks",
-	"version": "0.3",
+	"version": "0.4",
 	"description": "Contains CSS and JavaScripts to fix annoying bugs in EasyProject software.",
 
 	"content_scripts": [

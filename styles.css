@@ -27,6 +27,9 @@
 #ept_news_description, #ept_document_description {
 	width: 643px;
 }
+textarea[id^="ept_notes-"] {
+	width: 643px !important;
+}
 
 /* Hide CKE shit */
 span[class*="cke_editor_"] {
@@ -34,8 +37,12 @@ span[class*="cke_editor_"] {
 }
 
 /******************** New issue page ********************/
-.issue_watchers {
+#issue-form_issue_others_static_fields .issue_watchers {
 	display: none !important;
+}
+
+#ept_watchers input {
+	vertical-align: bottom;
 }
 
 #issue-dependent-fields,
@@ -73,10 +80,6 @@ span[class*="cke_editor_"] {
 
 .attachments-container input[type="file"] {
 	width: 210px;
-}
-
-#watchers input {
-	vertical-align: bottom;
 }
 
 /******************** Documents ********************/

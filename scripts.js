@@ -29,41 +29,72 @@ var images = {
 	".dotclear .markItUpEditor": "markitup/skins/markitup/images/bg-editor-wiki.png",
 };
 
-/* MarkItUp editor startup */
-$(document).ready(function() {
-	mySettings.previewTemplatePath = chrome.extension.getURL('markitup/templates/preview.html');
+var Editor = function($origin, $settings) {
+	this.origin = $($origin);
+	this.replacement = this.origin.clone();
 	
-	// clone textarea, fuck up with CKE
-	$('.wiki-edit').each(function(i, o) {
-		var origin = $(o);
-		var replacement = origin.clone();
-		
-		origin.attr({
-			disabled: true,
-			name: '_' + origin.attr('name'),
-			class: 'ept-hidden'
-		});
-		replacement.attr('id', 'ept_' + replacement.attr('id'));
-		replacement.insertBefore(origin);
-		replacement.markItUp(mySettings);
+	this.origin.attr({
+		disabled: true,
+		name: '_' + this.origin.attr('name'),
+		class: 'ept-hidden'
 	});
-	
+	this.replacement.attr('id', 'ept_' + this.replacement.attr('id'));
+	this.replacement.insertBefore(this.origin);
+	this.editor = this.replacement.markItUp($settings);
+
 	for (var selector in images) {
 		if (!images.hasOwnProperty(selector)) {
 			continue;
 		}
 		$(selector).css('background-image', "url('" + chrome.extension.getURL(images[selector]) + "')");
 	}
+}
+
+/* MarkItUp editor startup */
+$(document).ready(function() {
+	mySettings.previewTemplatePath = chrome.extension.getURL('markitup/templates/preview.html');
+	
+	// clone textarea, fuck up with CKE
+	$('.wiki-edit').each(function(i, o) {
+		new Editor(o, mySettings);
+	});
+
+	// comment quote handler
+	$('#history div.has-notes .contextual a:first-child').click(function(e) {
+		e.preventDefault();
+
+		setTimeout(function() {
+			console.log($('#ept_notes').val(), $('#notes').val());
+			$('#ept_notes').val($('#notes').val().replace(/\n>/g, "\n&amp;"));
+		}, 500)
+	});
+
+	// comment editing textarea
+	$('#history div.has-notes .contextual a + a').click(function(e) {
+		var $this = $(this);
+		e.preventDefault();
+
+		setTimeout(function() {
+			new Editor($this.closest('.journal').find('textarea'), mySettings);
+		}, 1000);
+	});
 });
 
 /* New issue watchers */
 $(document).ready(function() {
 	var watchers = [];
-	$('.issue_watchers .issue-watcher-container').each(function(i, o) {
+	var $watcherContainer = $('#issue-form_issue_others_static_fields .issue-watcher-container');
+	
+	if ($watcherContainer.length == 0) {
+		// to prevent inserting an empty <div> after #attributes
+		return;
+	}
+	
+	$watcherContainer.each(function(i, o) {
 		watchers[$('input:checkbox', o).attr('id')] = $('.issue-watcher-name', o).text();
 	});
 	
-	var container = $('<div id="watchers"><h4>Spolupracovníci:</h4><div class="container"></div></div>').insertAfter('#attributes').find('.container');
+	var container = $('<div id="ept_watchers"><h4>Spolupracovníci:</h4><div class="ept_container"></div></div>').insertAfter('#attributes').find('.ept_container');
 	for (i in watchers) {
 		container.append($('#' + i));
 		container.append(watchers[i] + '<br>');
@@ -77,6 +108,11 @@ $(document).ready(function() {
 	const STATUS_HOTOVO = 6;
 	var statusIdSelect = $('#issue_status_id');
 	var doneRatioSelect = $('#issue_done_ratio');
+
+	// if default value is already 100 %, shut this functionality down
+	if (doneRatioSelect.val() == 100) {
+		return;
+	}
 	
 	doneRatioSelect.change(function() {
 		var value = $(this).val();
