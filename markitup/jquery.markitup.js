@@ -504,8 +504,8 @@
 			}
 			
 			function writeInPreview(data) {
-				var doc = previewWindow.contentDocument;
-				if (doc) {			
+				var doc = previewWindow.contentDocument || previewWindow.document;
+				if (doc) {
 					try {
 						sp = doc.documentElement.scrollTop
 					} catch(e) {
