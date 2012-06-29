@@ -39,7 +39,7 @@ var Editor = function($origin, $settings) {
 $(document).ready(function() {
 	mySettings.previewTemplatePath = chrome.extension.getURL('markitup/templates/preview.html');
 	
-	mySettings.previewParser = function(data) { return data; };
+	mySettings.previewParser = markdownParser;
 
 	// clone textarea, fuck up with CKE
 	$('.wiki-edit').each(function(i, o) {
