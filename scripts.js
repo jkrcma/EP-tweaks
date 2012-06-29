@@ -95,7 +95,8 @@ $(document).ready(function() {
 var doneRatioOriginalValue = 0;
 
 $(document).ready(function() {
-	const STATUS_HOTOVO = 6;
+	// 6 = hotovo, 8 = schváleno k vyhrnutí, 9 = vyhrnuto/vyřešeno
+	var completedStatusIDs = [6, 8, 9];
 	var statusIdSelect = $('#issue_status_id');
 	var doneRatioSelect = $('#issue_done_ratio');
 
@@ -108,7 +109,9 @@ $(document).ready(function() {
 		var value = $(this).val();
 
 		if (value == 100) {
-			statusIdSelect.val(STATUS_HOTOVO);
+			if (completedStatusIDs.indexOf(parseInt(statusIdSelect.val())) === -1) {
+				statusIdSelect.val(completedStatusIDs[0]);
+			}
 			// visual enhance
 			$(this).css('outline', '5px auto #F36');
 		} else {
@@ -118,7 +121,7 @@ $(document).ready(function() {
 	}).change();
 
 	statusIdSelect.change(function() {
-		doneRatioSelect.val($(this).val() == STATUS_HOTOVO
+		doneRatioSelect.val(completedStatusIDs.indexOf(parseInt($(this).val())) > -1
 			? 100 : doneRatioOriginalValue);
 		doneRatioSelect.change();
 	});
