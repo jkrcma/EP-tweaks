@@ -8,12 +8,15 @@
 			"matches": ["https://iinfo.easyproject.cz/*"],
 			"css": [
 				"markitup/skins/markitup/style.css",
-				"styles.css"
+				"styles.css",
+				"markitup/sets/markdown/style.css"
 			],
 			"js": [
 				"jquery.js",
 				"markitup/jquery.markitup.js",
-				"markitup/sets/default/set.js",
+				"markitup/sets/markdown/set.js",
+				"markdown/Markdown.Converter.js",
+				"markdown/Markdown.Sanitizer.js",
 				"scripts.js"
 			]
 		}
