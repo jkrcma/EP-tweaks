@@ -29,7 +29,11 @@ var Editor = function($origin, $settings) {
 	this.htmlArea.insertBefore(this.origin);
 
 	this.editorArea.change(function() {
-		htmlArea.val(markdownParser(editorArea.val()));
+		var pureHtml = markdownParser(editorArea.val());
+		// add some styles because EP has some stupid CSS reset
+		pureHtml = pureHtml.replace(/<(pre|code)>/ig, '<$1 style="font-family: monospace;">');
+
+		htmlArea.val(pureHtml);
 	});
 
 	this.editor = this.editorArea.markItUp($settings);
@@ -38,7 +42,7 @@ var Editor = function($origin, $settings) {
 /* MarkItUp editor startup */
 $(document).ready(function() {
 	mySettings.previewTemplatePath = chrome.extension.getURL('markitup/templates/preview.html');
-	
+
 	mySettings.previewParser = markdownParser;
 
 	// clone textarea, fuck up with CKE
@@ -70,16 +74,16 @@ $(document).ready(function() {
 $(document).ready(function() {
 	var watchers = [];
 	var $watcherContainer = $('#issue-form_issue_others_static_fields .issue-watcher-container');
-	
+
 	if ($watcherContainer.length == 0) {
 		// to prevent inserting an empty <div> after #attributes
 		return;
 	}
-	
+
 	$watcherContainer.each(function(i, o) {
 		watchers[$('input:checkbox', o).attr('id')] = $('.issue-watcher-name', o).text();
 	});
-	
+
 	var container = $('<div id="ept_watchers"><h4>Spolupracovníci:</h4><div class="ept_container"></div></div>').insertAfter('#attributes').find('.ept_container');
 	for (i in watchers) {
 		container.append($('#' + i));
@@ -99,10 +103,10 @@ $(document).ready(function() {
 	if (doneRatioSelect.val() == 100) {
 		return;
 	}
-	
+
 	doneRatioSelect.change(function() {
 		var value = $(this).val();
-		
+
 		if (value == 100) {
 			statusIdSelect.val(STATUS_HOTOVO);
 			// visual enhance
@@ -112,7 +116,7 @@ $(document).ready(function() {
 			$(this).css('outline', 'none');
 		}
 	}).change();
-	
+
 	statusIdSelect.change(function() {
 		doneRatioSelect.val($(this).val() == STATUS_HOTOVO
 			? 100 : doneRatioOriginalValue);
