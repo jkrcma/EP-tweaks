@@ -82,6 +82,12 @@ span[class*="cke_editor_"] {
 	width: 210px;
 }
 
+.markItUpEditor {
+	font-size: 13px !important;
+	font-family: monospace !important;
+	height: 250px !important;
+}
+
 /******************** Documents ********************/
 #add-document-general .description {
 	width: 720px !important;
