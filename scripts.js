@@ -66,7 +66,6 @@ $(document).ready(function() {
 		e.preventDefault();
 
 		setTimeout(function() {
-			console.log($('#ept_notes').val(), $('#notes').val());
 			$('#ept_notes').val($('#notes').val().replace(/\n>/g, "\n&amp;"));
 		}, 500)
 	});
