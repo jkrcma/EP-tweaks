@@ -12,27 +12,31 @@
 // -------------------------------------------------------------------
 mySettings = {
 	previewParserPath:	'',
-	onShiftEnter:		{keepDefault:false, openWith:'\n\n'},
+	onShiftEnter: {keepDefault:false, openWith:'\n\n'},
 	markupSet: [
-		{name:'Heading 4', key:'4', openWith:'#### ', placeHolder:'Your title here...' },
-		{name:'Heading 5', key:'5', openWith:'##### ', placeHolder:'Your title here...' },
-		{name:'Heading 6', key:'6', openWith:'###### ', placeHolder:'Your title here...' },
+		{name:'Tučné', className:'bold', key:'B', openWith:'**', closeWith:'**'},
+		{name:'Kurzíva', className:'italic', key:'I', openWith:'_', closeWith:'_'},
+//		{name:'Podtržené', className:'underline', key:'U', openWith:'<u>', closeWith:'</u>'},
+		{name:'Přeškrtnuté', className:'stroke', key:'S', openWith:'<del>', closeWith:'</del>'},
 		{separator:'---------------' },
-		{name:'Bold', key:'B', openWith:'**', closeWith:'**'},
-		{name:'Italic', key:'I', openWith:'_', closeWith:'_'},
+		{name:'Heading 1', className:'h1', key:'1', openWith:'#### ', placeHolder:'Nadpis...' },
+		{name:'Heading 2', className:'h2', key:'2', openWith:'##### ', placeHolder:'Nadpis...' },
+		{name:'Heading 3', className:'h3', key:'3', openWith:'###### ', placeHolder:'Nadpis...' },
 		{separator:'---------------' },
-		{name:'Bulleted List', openWith:'- ' },
-		{name:'Numeric List', openWith:function(markItUp) {
-			return markItUp.line+'. ';
-		}},
+		{name:'Horní index', className:'super', openWith:'<sup>', closeWith:'</sup>'},
+		{name:'Dolní index', className:'sub', openWith:'<sub>', closeWith:'</sub>'},
 		{separator:'---------------' },
-		{name:'Picture', key:'P', replaceWith:'![[![Alternative text]!]]([![Url:!:http://]!] "[![Title]!]")'},
-		{name:'Link', key:'L', openWith:'[', closeWith:']([![Url:!:http://]!] "[![Title]!]")', placeHolder:'Your text to link here...' },
+		{name:'Nečíslovaný seznam', className:'blist', openWith:'- '},
+		{name:'Číslovaný seznam', className:'nlist', openWith:function(markItUp) { return markItUp.line+'. '; }},
+		{separator:'---------------' },
+		{name:'Obrázek', className:'image', key:'P', replaceWith:'![[![Alternative text]!]]([![Url:!:http://]!] "[![Title]!]")'},
+		{name:'Odkaz', className:'link', key:'L', openWith:'[', closeWith:']([![Url:!:http://]!] "[![Title]!]")', placeHolder:'Text odkazu...' },
 		{separator:'---------------'},
-		{name:'Quotes', openWith:'> '},
-		{name:'Code Block / Code', openWith:'(!(\t|!|`)!)', closeWith:'(!(`)!)'},
+		{name:'Quotes', className:'quote', openWith:'> '},
+		{name:'Kód', className:'code', openWith:'    ', closeWith:''},
+		{name:'Inline kód', className:'icode', openWith:'`', closeWith:'`'},
 		{separator:'---------------'},
-		{name:'Preview', call:'preview', className:"preview"}
+		{name:'Preview', className:'preview', call:'preview'}
 	]
 }
 
