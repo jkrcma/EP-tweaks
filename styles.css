@@ -48,6 +48,8 @@ span[class*="cke_editor_"] {
 #issue-dependent-fields,
 .issue_updatable_fields {
 	width: 220px !important;
+	float:right;
+	margin-right:10px;
 }
 
 /* Subject */
@@ -68,6 +70,12 @@ span[class*="cke_editor_"] {
 /* URL field */
 #issue_custom_field_values_6 {
 	width: 210px;
+}
+
+/* Submit buttons */
+.new-issue-form .my-page-button-create, .new-issue-form .issue_submit_buttons {
+	top: auto !important;
+	position: relative !important;
 }
 
 #attributes * {
