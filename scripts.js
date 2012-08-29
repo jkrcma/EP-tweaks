@@ -1,6 +1,8 @@
 var markdownParser = function(data) {
 	var markDown = Markdown.getSanitizingConverter();
-	return markDown.makeHtml(data);
+	var html = markDown.makeHtml(data);
+	html = '<style type="text/css">body { font-family: sans-serif; }</style>' + html;
+	return html;
 };
 
 var Editor = function($origin, $settings) {
