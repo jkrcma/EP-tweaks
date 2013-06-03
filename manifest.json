@@ -2,6 +2,7 @@
 	"name": "EasyProject tweaks",
 	"version": "0.4",
 	"description": "Contains CSS and JavaScripts to fix annoying bugs in EasyProject software.",
+	"manifest_version": 2,
 
 	"content_scripts": [
 		{
@@ -20,5 +21,51 @@
 				"scripts.js"
 			]
 		}
+	],
+
+	"web_accessible_resources": [
+		"markitup/jquery.markitup.js",
+		"markitup/templates/preview.html",
+		"markitup/templates/preview.css",
+		"markitup/skins/markitup/images/bg-editor-textile.png",
+		"markitup/skins/markitup/images/bg-editor-bbcode.png",
+		"markitup/skins/markitup/images/menu.png",
+		"markitup/skins/markitup/images/bg-editor-markdown.png",
+		"markitup/skins/markitup/images/bg-editor-dotclear.png",
+		"markitup/skins/markitup/images/bg-container.png",
+		"markitup/skins/markitup/images/bg-editor.png",
+		"markitup/skins/markitup/images/bg-editor-json.png",
+		"markitup/skins/markitup/images/bg-editor-html.png",
+		"markitup/skins/markitup/images/handle.png",
+		"markitup/skins/markitup/images/bg-editor-xml.png",
+		"markitup/skins/markitup/images/bg-editor-wiki.png",
+		"markitup/skins/markitup/images/submenu.png",
+		"markitup/skins/markitup/style.css",
+		"markitup/skins/simple/images/menu.png",
+		"markitup/skins/simple/images/handle.png",
+		"markitup/skins/simple/images/submenu.png",
+		"markitup/skins/simple/style.css",
+		"markitup/sets/markdown/images/image.png",
+		"markitup/sets/markdown/images/heading3.png",
+		"markitup/sets/markdown/images/subscript.png",
+		"markitup/sets/markdown/images/link.png",
+		"markitup/sets/markdown/images/bold.png",
+		"markitup/sets/markdown/images/code-block.png",
+		"markitup/sets/markdown/images/picture.png",
+		"markitup/sets/markdown/images/code-inline.png",
+		"markitup/sets/markdown/images/heading1.png",
+		"markitup/sets/markdown/images/list-bullet.png",
+		"markitup/sets/markdown/images/clean.png",
+		"markitup/sets/markdown/images/italic.png",
+		"markitup/sets/markdown/images/superscript.png",
+		"markitup/sets/markdown/images/stroke.png",
+		"markitup/sets/markdown/images/heading2.png",
+		"markitup/sets/markdown/images/list-numeric.png",
+		"markitup/sets/markdown/images/preview.png",
+		"markitup/sets/markdown/images/quotes.png",
+		"markitup/sets/markdown/style.css",
+		"markitup/sets/markdown/set.js",
+		"markdown/Markdown.Sanitizer.js",
+		"markdown/Markdown.Converter.js"
 	]
 }
